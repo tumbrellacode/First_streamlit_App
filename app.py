@@ -1,7 +1,7 @@
-# app.py
 
 import streamlit as st
 import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
 
@@ -166,7 +166,6 @@ elif page == "Data Overview":
 elif page == "Exploratory Data Analysis":
     st.title("📊 Exploratory Data Analysis")
 
-    import seaborn as sns
 
     st.write("Key visual findings from Part 1 of the project.")
 
@@ -322,7 +321,7 @@ elif page == "Exploratory Data Analysis":
         corr_target["satisfaction_binary"].values[::-1],
         color="#065A82",
     )
-    ax4.set_xlabel("Pearson Correlation")
+    ax4.set_xlabel("Correlation")
     plt.tight_layout()
     st.pyplot(fig4)
     plt.close(fig4)
@@ -527,33 +526,8 @@ elif page == "Recommendations":
         """
         Based on the feature importance results from the final Random Forest model,
         here are three actionable recommendations for airlines.
-        """
-    )
+        """)
 
-    # ── Feature importance chart ──
-    st.subheader("Feature importance — top 10 predictors")
-
-    feature_names = [
-        "Online boarding", "Inflight Wi-Fi", "Type of travel",
-        "Business class", "Inflight entertainment", "Seat comfort",
-        "Online booking ease", "Customer type", "Flight distance",
-        "Leg room service",
-    ]
-    importances = [0.175, 0.145, 0.100, 0.093, 0.060, 0.046, 0.038, 0.038, 0.038, 0.037]
-
-    fig, ax = plt.subplots(figsize=(8, 5))
-    colors = ["#065A82" if i < 2 else "#1C7293" if i < 4 else "#5B8FA8"
-              for i in range(len(feature_names))]
-    ax.barh(feature_names[::-1], importances[::-1], color=colors[::-1])
-    ax.set_xlabel("Feature Importance")
-    ax.set_title("Top 10 Feature Importances — Tuned Random Forest")
-    plt.tight_layout()
-    st.pyplot(fig)
-    plt.close(fig)
-
-    st.caption(
-        "Dark blue = digital experience  |  Medium blue = travel context  |  Light blue = on-board comfort"
-    )
 
     # ── Three recommendation cards ──
     st.subheader("From model to action")
